@@ -19,6 +19,19 @@ module ActionView
         end.html_safe
       end
 
+      def negative_text_field(negative_captcha, model, field, options={})
+        text_field(
+          model,
+          negative_captcha.fields[field],
+          negative_captcha.values[field],
+          options
+        ) +
+          content_tag('div', :style => 'position: absolute; left: -2000px;') do
+          text_field_tag(field, '', :tabindex => '999', :autocomplete => 'off')
+        end.html_safe
+      end
+
+
       def negative_text_area_tag(negative_captcha, field, options={})
         text_area_tag(
           negative_captcha.fields[field],
